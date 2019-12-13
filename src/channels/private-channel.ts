@@ -122,7 +122,17 @@ export class PrivateChannel {
     protected prepareHeaders(socket: any, options: any): any {
         options.headers['Cookie'] = options.headers['Cookie'] || socket.request.headers.cookie;
         options.headers['X-Requested-With'] = 'XMLHttpRequest';
+        options.headers['X-Auth-Client-Ip'] = this.getClientIp(socket.request);
+        options.headers['X-Websocket-App'] = 'MapeditorAPI::WS';
 
         return options.headers;
+    }
+
+    protected getClientIp(request: any): any {
+        let ip = request.connection.remoteAddress.split(":").pop();
+        if (request.headers['x-forwarded-for'] || request.headers['X-Forwarded-For']) {
+            [ip] = (request.headers['x-forwarded-for'] || request.headers['X-Forwarded-For']).split(',')
+        }
+        return ip;
     }
 }
