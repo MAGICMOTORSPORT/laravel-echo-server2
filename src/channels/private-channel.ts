@@ -123,6 +123,7 @@ export class PrivateChannel {
         options.headers['Cookie'] = options.headers['Cookie'] || socket.request.headers.cookie;
         options.headers['X-Requested-With'] = 'XMLHttpRequest';
         options.headers['X-Auth-Client-Ip'] = this.getClientIp(socket.request);
+        options.headers['X-Websocket-App'] = 'MapeditorAPI::WS';
 
         return options.headers;
     }
