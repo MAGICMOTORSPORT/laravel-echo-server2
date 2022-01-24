@@ -101,7 +101,7 @@ export class PresenceChannel {
     leave(socket: any, channel: string): void {
         this.getMembers(channel).then(members => {
             members = members || [];
-            let member = members.find(member => member.socketId == socket.id);
+            let member = members.find(member => member.socketId == socket.id) || {};
             members = members.filter(m => m.socketId != member.socketId);
 
             this.db.set(channel + ':members', members);
